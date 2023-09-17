@@ -1,0 +1,40 @@
+public class MultiThreadDemo implements Runnable {
+    private Thread thread;
+    private String threadName;
+ 
+    MultiThreadDemo(String name) {
+       threadName = name;
+       System.out.println("Creating " +  threadName );
+    }
+ 
+    public void run() {
+       System.out.println("Running " +  threadName );
+       try {
+          for(int i = 4; i > 0; i--) {
+             System.out.println("Thread: " + threadName + ", " + i);
+             Thread.sleep(50);
+          }
+       } catch (InterruptedException e) {
+          System.out.println("Thread " +  threadName + " interrupted.");
+       }
+       System.out.println("Thread " +  threadName + " exiting.");
+    }
+ 
+    public void start () {
+       System.out.println("Starting " +  threadName );
+       if (thread == null) {
+          thread = new Thread (this, threadName);
+          thread.start ();
+       }
+    }
+ 
+    public static void main(String args[]) {
+       MultiThreadDemo object1 = new MultiThreadDemo("Thread-1");
+       object1.start();
+ 
+       MultiThreadDemo object2 = new MultiThreadDemo("Thread-2");
+       object2.start();
+    }
+ }
+ 
+
