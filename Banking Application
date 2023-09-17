@@ -1,0 +1,75 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class BankingApplication extends JFrame implements ActionListener {
+
+    private JLabel nameLabel, balanceLabel, amountLabel;
+    private JTextField nameField, balanceField, amountField;
+    private JButton depositButton, withdrawButton;
+    private double balance = 0.0;
+
+    public BankingApplication() {
+        super("Banking Application");
+
+        nameLabel = new JLabel("Name:");
+        balanceLabel = new JLabel("Balance:");
+        amountLabel = new JLabel("Amount:");
+
+        nameField = new JTextField(20);
+        balanceField = new JTextField(20);
+        amountField = new JTextField(20);
+
+        balanceField.setEditable(false);
+
+        depositButton = new JButton("Deposit");
+        withdrawButton = new JButton("Withdraw");
+
+        depositButton.addActionListener(this);
+        withdrawButton.addActionListener(this);
+
+        JPanel panel = new JPanel(new GridLayout(4, 2));
+
+        panel.add(nameLabel);
+        panel.add(nameField);
+
+        panel.add(balanceLabel);
+        panel.add(balanceField);
+
+        panel.add(amountLabel);
+        panel.add(amountField);
+
+        panel.add(depositButton);
+        panel.add(withdrawButton);
+
+        add(panel);
+
+        setSize(400, 200);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == depositButton) {
+            double amount = Double.parseDouble(amountField.getText());
+            balance += amount;
+            balanceField.setText(String.valueOf(balance));
+            amountField.setText("");
+        } else if (e.getSource() == withdrawButton) {
+            double amount = Double.parseDouble(amountField.getText());
+            if (balance >= amount) {
+                balance -= amount;
+                balanceField.setText(String.valueOf(balance));
+                amountField.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Insufficient balance!");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new BankingApplication();
+    }
+}
+
+
