@@ -1,0 +1,28 @@
+abstract class calculator {
+    abstract void display();
+}
+class Add extends calculator
+{
+    void display()
+    {
+        System.out.println("In the Add child class");
+    }
+}
+    class Sub extends calculator
+    {
+        void display()
+        {
+            System.out.println("In the sub child class");
+        }
+    }
+    class AbstractMethodExample
+    {
+        public static void main(String[] args)
+        {
+            calculator obj1 = new Add();
+            obj1.display();
+            calculator obj2 = new Sub();
+            obj2.display();
+        }
+    }
+
