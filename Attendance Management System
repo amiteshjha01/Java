@@ -1,0 +1,94 @@
+import java.util.*;
+
+
+public class AttendanceManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int numStudents = 0;
+        int numClasses = 0;
+        String[] studentNames = new String[100];
+        String[] classNames = new String[100];
+        boolean[][] attendance = new boolean[numStudents][numClasses];
+
+        while (true) {
+            System.out.println("Attendance Management System");
+            System.out.println("1. Add a student");
+            System.out.println("2. Add a class");
+            System.out.println("3. Record attendance");
+            System.out.println("4. View attendance");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter student name: ");
+                    String studentName = scanner.next();
+                    studentNames[numStudents] = studentName;
+                    numStudents++;
+                    boolean[][] newAttendance = new boolean[numStudents][numClasses];
+                    for (int i = 0; i < numStudents - 1; i++) {
+                        for (int j = 0; j < numClasses; j++) {
+                            newAttendance[i][j] = attendance[i][j];
+                        }
+                    }
+                    attendance = newAttendance;
+                    break;
+                case 2:
+                    System.out.print("Enter class name: ");
+                    String className = scanner.next();
+                    classNames[numClasses] = className;
+                    numClasses++;
+                    newAttendance = new boolean[numStudents][numClasses];
+                    for (int i = 0; i < numStudents; i++) {
+                        for (int j = 0; j < numClasses - 1; j++) {
+                            newAttendance[i][j] = attendance[i][j];
+                        }
+                    }
+                    attendance = newAttendance;
+                    break;
+                case 3:
+                    System.out.print("Enter student name: ");
+                    studentName = scanner.next();
+                    System.out.print("Enter class name: ");
+                    className = scanner.next();
+                    int studentIndex = -1;
+                    int classIndex = -1;
+                    for (int i = 0; i < numStudents; i++) {
+                        if (studentName.equals(studentNames[i])) {
+                            studentIndex = i;
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < numClasses; j++) {
+                        if (className.equals(classNames[j])) {
+                            classIndex = j;
+                            break;
+                        }
+                    }
+                    if (studentIndex != -1 && classIndex != -1) {
+                        attendance[studentIndex][classIndex] = true;
+                        System.out.println("Attendance recorded.");
+                    } else {
+                        System.out.println("Invalid student or class name.");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Attendance report:");
+                    for (int i = 0; i < numStudents; i++) {
+                        System.out.print(studentNames[i] + ":\t");
+                        for (int j = 0; j < numClasses; j++) {
+                            System.out.print(attendance[i][j] ? "P\t" : "A\t");
+                        }
+                        System.out.println();
+                    }
+                    break;
+                case 5:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
+            }
+        }
+    }
+}
