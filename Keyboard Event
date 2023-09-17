@@ -1,0 +1,39 @@
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
+public class KeyboardEventDemo extends JFrame implements KeyListener {
+    private JTextArea textArea;
+
+    public KeyboardEventDemo() {
+        super("Keyboard Event Demo");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textArea = new JTextArea();
+        textArea.addKeyListener(this);
+
+        add(textArea);
+
+        setSize(300, 200);
+        setVisible(true); 
+    }
+
+    public void keyPressed(KeyEvent e) {
+        textArea.append("Key pressed: " + KeyEvent.getKeyText(e.getKeyCode()) + "\n");
+    }
+
+    public void keyReleased(KeyEvent e) {
+        textArea.append("Key released: " + KeyEvent.getKeyText(e.getKeyCode()) + "\n");
+    }
+
+    public void keyTyped(KeyEvent e) {
+        textArea.append("Key typed: " + e.getKeyChar() + "\n");
+    }
+
+    public static void main(String[] args) {
+        new KeyboardEventDemo();
+    }
+}
+
+
