@@ -1,0 +1,40 @@
+import java.awt.*;
+import java.awt.event.*;
+
+public class MouseEventDemo extends Frame implements MouseListener {
+    private Label lblMsg;
+
+    public MouseEventDemo() {
+        super("Mouse Event Demo");
+        lblMsg = new Label();
+        add(lblMsg, BorderLayout.CENTER);
+        addMouseListener(this);
+        setSize(300, 200);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new MouseEventDemo();
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        lblMsg.setText("Mouse clicked at (" + e.getX() + ", " + e.getY() + ")");
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        lblMsg.setText("Mouse entered at (" + e.getX() + ", " + e.getY() + ")");
+    }
+
+    public void mouseExited(MouseEvent e) {
+        lblMsg.setText("Mouse exited at (" + e.getX() + ", " + e.getY() + ")");
+    }
+
+    public void mousePressed(MouseEvent e) {
+        lblMsg.setText("Mouse pressed at (" + e.getX() + ", " + e.getY() + ")");
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        lblMsg.setText("Mouse released at (" + e.getX() + ", " + e.getY() + ")");
+    }
+}
+
